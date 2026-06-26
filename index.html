@@ -332,11 +332,11 @@
   /* [임시] 떠오름 스파클(흰 배경 코너 배지) 숨김 */
   #collab .ava.ai .ai-dot.wfstar{display:none}
   /* 효과#8 스파클 산개: 아바타 테두리에서 별이 랜덤 위치·색으로 톡톡(JS .go 토글) */
-  #collab .m3 .ava .e8wrap,#docs .aiava .e8wrap{position:absolute;inset:0;z-index:3;pointer-events:none}
-  #collab .m3 .ava .e8wrap .sp,#docs .aiava .e8wrap .sp{position:absolute;opacity:0}
-  #collab .m3 .ava .e8wrap .sp.go,#docs .aiava .e8wrap .sp.go{animation:popOnce .9s ease-out}
+  #collab .m3 .ava .e8wrap,#docs .aiava .e8wrap,#email .em-wfai .wfai-ava .e8wrap{position:absolute;inset:0;z-index:3;pointer-events:none}
+  #collab .m3 .ava .e8wrap .sp,#docs .aiava .e8wrap .sp,#email .em-wfai .wfai-ava .e8wrap .sp{position:absolute;opacity:0}
+  #collab .m3 .ava .e8wrap .sp.go,#docs .aiava .e8wrap .sp.go,#email .em-wfai .wfai-ava .e8wrap .sp.go{animation:popOnce .9s ease-out}
   @keyframes popOnce{0%{opacity:0;transform:scale(.3)}26%{opacity:1;transform:scale(1.15)}46%{opacity:.85;transform:scale(.95)}100%{opacity:0;transform:scale(.4)}}
-  #collab .m3 .ava .e8wrap .sp .star,#docs .aiava .e8wrap .sp .star{width:1em;height:1em;display:block;filter:drop-shadow(0 0 1px rgba(124,92,255,.5))}
+  #collab .m3 .ava .e8wrap .sp .star,#docs .aiava .e8wrap .sp .star,#email .em-wfai .wfai-ava .e8wrap .sp .star{width:1em;height:1em;display:block;filter:drop-shadow(0 0 1px rgba(124,92,255,.5))}
 
   /* 연속(AI) 메시지: 아바타 없이 본문 들여쓰기 */
   #collab .msg.cont{padding-left:41px;max-width:100%;align-self:stretch}
@@ -932,7 +932,7 @@
 <body>
 <button class="rec-toggle" id="recToggle" title="녹화 모드 (R)"><span class="rt-off">녹화 모드</span><span class="rt-on">녹화 중 · 종료</span></button>
 <script>(function(){var b=document.getElementById("recToggle");if(b)b.addEventListener("click",function(){document.body.classList.toggle("recmode");});document.addEventListener("keydown",function(e){if((e.key==="r"||e.key==="R")&&!/INPUT|TEXTAREA/.test((e.target&&e.target.tagName)||"")&&!(e.target&&e.target.isContentEditable)){document.body.classList.toggle("recmode");}});document.addEventListener("mousemove",function(e){if(document.body.classList.contains("recmode"))document.body.classList.toggle("peek",e.clientY<150);});})();</script>
-<div class="build-stamp" style="position:fixed;top:10px;right:14px;font-size:11px;color:#b6b9c4;font-weight:600;z-index:9999;font-family:-apple-system,Pretendard,sans-serif;letter-spacing:.01em">업데이트 <span id="bdate">2026-06-26 18:14 KST</span></div>
+<div class="build-stamp" style="position:fixed;top:10px;right:14px;font-size:11px;color:#b6b9c4;font-weight:600;z-index:9999;font-family:-apple-system,Pretendard,sans-serif;letter-spacing:.01em">업데이트 <span id="bdate">2026-06-26 18:20 KST</span></div>
 <div class="wrap">
 
   <div class="tabs">
