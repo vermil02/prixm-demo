@@ -332,7 +332,7 @@
   #collab .msg.cont .cbody{display:flex;flex-direction:column;gap:6px;width:100%}
 
   /* 역량 사이클러: 좌측 기준 유지 + 우측 꽉 채운 박스 */
-  .cycler-card{width:100%;overflow:clip;overflow-clip-margin:9px;will-change:clip-path}
+  .cycler-card{width:100%;overflow:clip;overflow-clip-margin:14px;will-change:clip-path}
   /* 드럼 좌측 상단 상태("맞춤 업무를 구성 중입니다…") — 구성(스핀) 단계에만 노출, 등록 진입 시 접힘 */
   #collab .cyc-stat{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--soft-ink);
     padding:5px 4px 5px 8px;margin-bottom:6px;overflow:hidden}   /* 좌·상·하 패딩 → 펄스 glow가 잘리지 않게 */
@@ -375,7 +375,7 @@
   @keyframes boxBoing{0%{transform:scale(1,1)}22%{transform:scale(1.015,.93)}48%{transform:scale(.99,1.03)}72%{transform:scale(1.005,.99)}100%{transform:scale(1,1)}}
   #collab.show .cycler-card{animation:cardPop .6s cubic-bezier(.25,.85,.35,1) backwards, boxBoing .45s ease both;animation-delay:calc(var(--t-l4) + .15s), var(--t-reg)}
   /* 착지 후: 릴(위임/요청 텍스트) 접힘 → 등록부 확장(박스 아래로 커짐) */
-  .regbody{max-height:0;opacity:0;overflow:clip;overflow-clip-margin:9px}
+  .regbody{max-height:0;opacity:0;overflow:clip;overflow-clip-margin:14px}
   @keyframes reelCollapse{from{max-height:100px;opacity:1}to{max-height:0;opacity:0}}
   @keyframes regExpand{from{max-height:0;opacity:0}to{max-height:170px;opacity:1}}
   #collab.show .reel-win{animation:reelCollapse .4s ease both;animation-delay:calc(var(--t-land) + .1s)}
@@ -919,7 +919,7 @@
 </style>
 </head>
 <body>
-<div class="build-stamp" style="position:fixed;top:10px;right:14px;font-size:11px;color:#b6b9c4;font-weight:600;z-index:9999;font-family:-apple-system,Pretendard,sans-serif;letter-spacing:.01em">업데이트 <span id="bdate">2026-06-26 13:37 KST</span></div>
+<div class="build-stamp" style="position:fixed;top:10px;right:14px;font-size:11px;color:#b6b9c4;font-weight:600;z-index:9999;font-family:-apple-system,Pretendard,sans-serif;letter-spacing:.01em">업데이트 <span id="bdate">2026-06-26 13:48 KST</span></div>
 <div class="wrap">
 
   <div class="tabs">
