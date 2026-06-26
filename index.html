@@ -587,7 +587,8 @@
   #docs.show .dl4 .lchk{animation:chkIn .3s cubic-bezier(.34,1.6,.5,1) forwards;animation-delay:7.9s}
   @keyframes stOut{to{opacity:0;max-height:0;margin-top:0;margin-bottom:-7px;transform:translateY(-4px)}}  /* gap 1개만 흡수 → 메시지 간격 7px 유지 */
   #docs .aibody .a{align-self:flex-start;max-width:95%;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 12px;box-shadow:0 1px 2px rgba(0,0,0,.04)}  /* 민서연 채팅 말풍선 스타일 */
-  #docs.show .aibody .a{animation:rise .6s ease both, bubbleBoing .5s ease-out both;animation-delay:8.0s, 8.5s;transform-origin:left center}  /* 8.5s 사출 시 말풍선 뽀잉(0.5s 텀 뒤) */
+  #docs .aibody .a{transform-origin:top left}
+  #docs.show .aibody .a{animation:bubblePop .45s cubic-bezier(.34,1.6,.5,1) both;animation-delay:8.0s}  /* ack·done2와 동일한 팝 */
   #docs .airesp{display:flex;gap:9px;align-items:flex-start;margin-top:8px}
   #docs .airespbody{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px}
   #docs .aiava{position:relative;width:30px;height:30px;border-radius:50%;flex-shrink:0;background:#eceaff;opacity:0}
@@ -918,7 +919,7 @@
 </style>
 </head>
 <body>
-<div class="build-stamp" style="position:fixed;top:10px;right:14px;font-size:11px;color:#b6b9c4;font-weight:600;z-index:9999;font-family:-apple-system,Pretendard,sans-serif;letter-spacing:.01em">업데이트 <span id="bdate">2026-06-26 11:20 KST</span></div>
+<div class="build-stamp" style="position:fixed;top:10px;right:14px;font-size:11px;color:#b6b9c4;font-weight:600;z-index:9999;font-family:-apple-system,Pretendard,sans-serif;letter-spacing:.01em">업데이트 <span id="bdate">2026-06-26 12:41 KST</span></div>
 <div class="wrap">
 
   <div class="tabs">
@@ -3041,7 +3042,7 @@
     var _ap=document.querySelector('.panel.show'), _lp=_ap&&(_ap.id==='collab'||_ap.id==='docs'||_ap.id==='flow'), _RST=_lp && T>=(total-0.65)*1000-1;
     if(_lp){ if(_RST)_ap.classList.add('resetting'); else _ap.classList.remove('resetting'); }
     if(!_RST){ ga().forEach(function(a){ try{ var tg=a.effect&&a.effect.target;
-      if(tg&&tg.classList&&(tg.classList.contains('sp')||tg.classList.contains('docfly2'))){return;}
+      if(tg&&tg.classList&&(tg.classList.contains('sp')||tg.classList.contains('docfly2')||tg.classList.contains('scanfan'))){return;}
       a.pause(); a.currentTime=T; }catch(e){} }); }
     for(i=0;i<FX.length;i++){ fx=FX[i]; if(fx.anim){ try{ fx.anim.pause(); fx.anim.currentTime=Math.max(0,T-fx.at); }catch(e){} } }
     paint(T);
