@@ -2580,7 +2580,12 @@
   #data .wfmain{position:relative;flex:1;min-width:0;min-height:0;background:#fafbfc;display:flex;flex-direction:column}
   #data .dview{display:none}
   #data .dview.on{display:flex;flex-direction:column;flex:1;min-height:0}
-  #data #dv-result{padding:16px 18px;overflow:auto}
+  #data #dv-flow{position:relative}   /* AI 작업 중 테두리/틴트가 캔버스+팔레트 전체를 덮도록 */
+  #data #dv-result{padding:16px 18px;overflow:hidden;scrollbar-width:none;-ms-overflow-style:none}
+  #data #dv-result::-webkit-scrollbar{width:0;height:0;display:none}
+  /* 루프 마무리: 광고 결과·대화가 살짝 페이드아웃된 뒤 초기상태(설정·4노드)로 전환 */
+  #data.show.resetting #dv-result{animation:fadeClear .55s ease both}
+  #data.show.resetting .dai-q,#data.show.resetting .dai-r,#data.show.resetting .dai-q2,#data.show.resetting .dai-r2{animation:fadeClear .5s ease both}
   #data .ctxbar{flex:0 0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:13px;font-size:11.5px}
   #data .ctxbar .pchip{background:var(--accent-soft);color:var(--accent);border-radius:7px;padding:5px 10px;font-weight:700}
   #data .ctxbar .meta{color:var(--muted)}
@@ -2594,9 +2599,9 @@
   /* 성분분석 = 좌우 캐러셀 (다양한 차트 순환) */
   #data .dcar{overflow:hidden;flex:0 0 auto}
   #data .dcar-track{display:flex}
-  #data.show .dcar-track{animation:dzCar4 8.6s ease-in-out 11.0s both}
+  #data.show .dcar-track{animation:dzCar4 3.7s ease-in-out 7.7s both}   /* 2개씩 넘김(3뷰): 첫 1.2s · 이후 0.8s · 슬라이드 0.45s */
   #data .dseq-clock{position:absolute;width:0;height:0;opacity:0;pointer-events:none}
-  #data.show .dseq-clock{animation:dzClock 20.5s linear both}
+  #data.show .dseq-clock{animation:dzClock 15.6s linear both}   /* 마지막 노드생성 완성(~16.6s)에 채팅 초기화·종료 맞춤(+reportAnim 1.65s → 루프 17.25s) */
   @keyframes dzClock{0%{opacity:0}100%{opacity:0}}
   #data #dExtra{margin-top:14px}
   #data .dfind{background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px 14px;box-shadow:0 1px 2px rgba(20,20,50,.03)}
@@ -2610,7 +2615,7 @@
   #data .dmf-x{font-weight:700;color:var(--c-brand)}
   #data .dcar-slide{flex:0 0 50%;padding:0 6px;box-sizing:border-box}
   #data .dcar-slide .ccard{height:100%}
-  @keyframes dzCar4{0%,13%{transform:translateX(0)}18%,33%{transform:translateX(-50%)}38%,53%{transform:translateX(-100%)}58%,73%{transform:translateX(-150%)}78%,100%{transform:translateX(-200%)}}
+  @keyframes dzCar4{0%,32.4%{transform:translateX(0)}44.6%,66.2%{transform:translateX(-100%)}78.4%,100%{transform:translateX(-200%)}}   /* 2개씩 넘김: 1·2 → 3·4 → 5·6 */
   /* 광고 = 대시보드 (구조 자체 다름) */
   #data .dashg{display:flex;flex-direction:column;gap:12px}
   #data .dash-hero-row{display:grid;grid-template-columns:1.2fr 1fr;gap:12px}
@@ -2673,6 +2678,11 @@
   #data .dai-ava{position:relative;width:27px;height:27px;border-radius:50%;overflow:visible;background:linear-gradient(135deg,#9C8CF0,#6C5CE7);flex:0 0 auto}
   #data .dai-ava.av-zoom .avwrap{position:absolute;inset:0;overflow:hidden;border-radius:50%}
   #data .dai-ava.av-zoom .avwrap .avimg{transform:scale(1.5);transform-origin:center 26%}
+  /* 정보성 아바타 동작 중 별 스파클 (다른 탭의 e8wrap 효과 그대로) */
+  #data .dai-ava .e8wrap{position:absolute;inset:0;z-index:3;pointer-events:none}
+  #data .dai-ava .e8wrap .sp{position:absolute;opacity:0}
+  #data .dai-ava .e8wrap .sp.go{animation:popOnce .9s ease-out}
+  #data .dai-ava .e8wrap .sp .star{width:1em;height:1em;display:block;filter:drop-shadow(0 0 1px rgba(124,92,255,.5))}
   #data .dai-rb{display:flex;flex-direction:column;gap:6px;min-width:0}
   #data .dai-nm{font-size:11.5px;font-weight:800;color:#23262e}
   #data .dai-nm span{font-size:10px;font-weight:600;color:#9aa0ac;margin-left:3px}
@@ -2684,6 +2694,7 @@
   #data .dlchk{position:absolute;inset:0;color:#0c9b66;font-size:11.5px;font-weight:900;opacity:0;display:flex;align-items:center;justify-content:center}
   #data .dai-done{font-size:11.5px;color:#2a2f3a;line-height:1.5;background:#fff;border:1px solid #ececf2;border-radius:10px;padding:9px 11px;opacity:0}
   #data .dai-done b{color:var(--c-brand);font-weight:700}
+  #data .dai-after{font-size:11.5px;color:#2a2f3a;line-height:1.5;background:#fff;border:1px solid #ececf2;border-radius:10px;padding:8px 11px;opacity:0;transform-origin:top left}
   #data .dai-input{border-top:1px solid var(--c-border);padding:9px 11px;display:flex;align-items:center;gap:8px;flex-shrink:0}
   #data .dai-plus{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#f7f7f7;color:var(--c-text-3);font-size:14px}
   #data .dai-ph{flex:1;font-size:11.5px;color:var(--c-text-4)}
@@ -2731,20 +2742,27 @@
   @keyframes dzCell{0%{opacity:0;transform:scale(.2)}100%{opacity:1;transform:scale(1)}}
   @keyframes dzSoft{from{opacity:0}to{opacity:1}}
   /* AI 시퀀스 (#data.show 게이팅 → 마스터 클록 구동) */
-  #data.show .dai-q{animation:dzIn .45s ease both;animation-delay:.5s}
-  #data.show .dai-r{animation:dzIn .45s ease both;animation-delay:1.2s}
-  #data.show .dai-ava{transform-origin:center;animation:dzAva .5s cubic-bezier(.34,1.56,.64,1) both;animation-delay:1.25s}
-  #data.show .dai-a{transform-origin:top left;animation:dzBub .42s cubic-bezier(.34,1.6,.5,1) both;animation-delay:1.3s}
-  #data.show .dlr1{animation:dzLog .35s ease both;animation-delay:1.9s}
-  #data.show .dlr2{animation:dzLog .35s ease both;animation-delay:4.0s}
-  #data.show .dlr3{animation:dzLog .35s ease both;animation-delay:8.7s}
-  #data.show .dlr1 .dlrun{animation:dzPulse 1s infinite,dzRun .3s ease forwards;animation-delay:1.9s,3.9s}
-  #data.show .dlr1 .dlchk{animation:dzChk .3s cubic-bezier(.34,1.6,.5,1) both;animation-delay:3.9s}
-  #data.show .dlr2 .dlrun{animation:dzPulse 1s infinite,dzRun .3s ease forwards;animation-delay:4.0s,8.6s}
-  #data.show .dlr2 .dlchk{animation:dzChk .3s cubic-bezier(.34,1.6,.5,1) both;animation-delay:8.6s}
-  #data.show .dlr3 .dlrun{animation:dzPulse 1s infinite,dzRun .3s ease forwards;animation-delay:8.7s,9.9s}
-  #data.show .dlr3 .dlchk{animation:dzChk .3s cubic-bezier(.34,1.6,.5,1) both;animation-delay:9.9s}
-  #data.show .dai-done{transform-origin:top left;animation:dzBub .45s cubic-bezier(.34,1.6,.5,1) both;animation-delay:10.1s}
+  #data.show .dai-q{animation:dzIn .45s ease both;animation-delay:.3s}
+  #data.show .dai-r{animation:dzIn .45s ease both;animation-delay:1.0s}
+  #data.show .dai-ava{transform-origin:center;animation:dzAva .5s cubic-bezier(.34,1.56,.64,1) both;animation-delay:1.05s}
+  #data.show .dai-a{transform-origin:top left;animation:dzBub .42s cubic-bezier(.34,1.6,.5,1) both;animation-delay:1.1s}
+  #data.show .dlr1{animation:dzLog .35s ease both;animation-delay:1.7s}
+  #data.show .dlr2{animation:dzLog .35s ease both;animation-delay:2.9s}
+  #data.show .dlr3{animation:dzLog .35s ease both;animation-delay:5.44s}
+  #data.show .dlr1 .dlrun{animation:dzPulse 1s infinite,dzRun .3s ease forwards;animation-delay:1.7s,2.8s}
+  #data.show .dlr1 .dlchk{animation:dzChk .3s cubic-bezier(.34,1.6,.5,1) both;animation-delay:2.8s}
+  #data.show .dlr2 .dlrun{animation:dzPulse 1s infinite,dzRun .3s ease forwards;animation-delay:2.9s,5.34s}
+  #data.show .dlr2 .dlchk{animation:dzChk .3s cubic-bezier(.34,1.6,.5,1) both;animation-delay:5.34s}
+  #data.show .dlr3 .dlrun{animation:dzPulse 1s infinite,dzRun .3s ease forwards;animation-delay:5.44s,5.99s}
+  #data.show .dlr3 .dlchk{animation:dzChk .3s cubic-bezier(.34,1.6,.5,1) both;animation-delay:5.99s}
+  #data.show .dai-done{transform-origin:top left;animation:dzBub .45s cubic-bezier(.34,1.6,.5,1) both;animation-delay:6.25s}
+  #data.show .dai-after{animation:dzBub .45s cubic-bezier(.34,1.6,.5,1) both;animation-delay:6.9s}
+  #data.show .dai-q2{animation-delay:10.9s}        /* 2번째 턴: 광고 분석 요청 (결과 3번째 뷰 직후) */
+  #data.show .dai-r2{animation-delay:11.5s}        /* 정보성 답변 → 이후 광고 대시보드 */
+  /* 데모 표시 전용: 분석/설정 탭·좌측 분석 세트 클릭 비활성, 스크롤 동작·스크롤바 제거 */
+  #data .dtab,#data .witem{pointer-events:none}
+  #data .dai-body{overflow:hidden;scrollbar-width:none;-ms-overflow-style:none}
+  #data .dai-body::-webkit-scrollbar{width:0;height:0;display:none}
   /* 차트 reveal (delay는 JS 인라인) */
   #data .aDraw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len)}
   #data .aPop{opacity:0;transform-box:fill-box;transform-origin:center}
@@ -2769,7 +2787,7 @@
   #data .bxRef{transform-box:fill-box;transform-origin:left center}
   #data.show .bxRef{animation:dzWipe .55s ease both}
   #data .uvfill{transform-box:fill-box;transform-origin:left center}
-  #data.show .uvfill{animation:dzWipe .7s ease both}
+  #data.show .uvfill{animation:dzSoft .7s ease both}   /* 좌→우 가로 스케일(날아오는 왜곡) 제거 → 라인과 함께 부드럽게 페이드 */
   #data .regdot{opacity:0;transform-box:fill-box;transform-origin:center}
   #data.show .regdot{animation:dzEmit .38s cubic-bezier(.34,1.4,.5,1) both}
   #data .pcadot{opacity:0;transform-box:fill-box;transform-origin:center}
@@ -2859,18 +2877,21 @@
             <div class="dai-body">
               <div class="dai-q" id="daiQ"></div>
               <div class="dai-r">
-                <div class="dai-ava aiava av-zoom" data-name="정보성"></div>
+                <div class="dai-ava aiava av-zoom" data-name="정보성"><span class="e8wrap"><span class="sp"><svg class="star" viewBox="0 0 12 12"><path fill="currentColor" d="M4.08998 2.01101C4.43998 0.991006 5.84998 0.959006 6.26298 1.91801L6.29798 2.01201L6.76898 3.38801C6.87674 3.70407 7.05118 3.99327 7.28048 4.23603C7.50977 4.47878 7.78857 4.66941 8.09798 4.79501L8.22398 4.84201L9.60098 5.31201C10.621 5.66101 10.653 7.07201 9.69398 7.48501L9.60098 7.52001L8.22398 7.99001C7.90801 8.09766 7.61887 8.27194 7.37612 8.50106C7.13337 8.73018 6.94269 9.00878 6.81698 9.31801L6.76998 9.44401L6.29998 10.822C5.95098 11.842 4.53998 11.873 4.12798 10.915L4.09098 10.822L3.62098 9.44501C3.51343 9.12914 3.3393 8.84006 3.11036 8.59732C2.88142 8.35457 2.60301 8.16384 2.29398 8.03801L2.16798 7.99101L0.790977 7.52101C-0.232023 7.17101 -0.262023 5.76101 0.696977 5.34801L0.789977 5.31201L2.16698 4.84201C2.48285 4.73412 2.77186 4.55963 3.01444 4.33034C3.25701 4.10105 3.44749 3.82231 3.57298 3.51301L3.61998 3.38701L4.08998 2.01101Z"/></svg></span><span class="sp"><svg class="star" viewBox="0 0 12 12"><path fill="currentColor" d="M4.08998 2.01101C4.43998 0.991006 5.84998 0.959006 6.26298 1.91801L6.29798 2.01201L6.76898 3.38801C6.87674 3.70407 7.05118 3.99327 7.28048 4.23603C7.50977 4.47878 7.78857 4.66941 8.09798 4.79501L8.22398 4.84201L9.60098 5.31201C10.621 5.66101 10.653 7.07201 9.69398 7.48501L9.60098 7.52001L8.22398 7.99001C7.90801 8.09766 7.61887 8.27194 7.37612 8.50106C7.13337 8.73018 6.94269 9.00878 6.81698 9.31801L6.76998 9.44401L6.29998 10.822C5.95098 11.842 4.53998 11.873 4.12798 10.915L4.09098 10.822L3.62098 9.44501C3.51343 9.12914 3.3393 8.84006 3.11036 8.59732C2.88142 8.35457 2.60301 8.16384 2.29398 8.03801L2.16798 7.99101L0.790977 7.52101C-0.232023 7.17101 -0.262023 5.76101 0.696977 5.34801L0.789977 5.31201L2.16698 4.84201C2.48285 4.73412 2.77186 4.55963 3.01444 4.33034C3.25701 4.10105 3.44749 3.82231 3.57298 3.51301L3.61998 3.38701L4.08998 2.01101Z"/></svg></span><span class="sp"><svg class="star" viewBox="0 0 12 12"><path fill="currentColor" d="M4.08998 2.01101C4.43998 0.991006 5.84998 0.959006 6.26298 1.91801L6.29798 2.01201L6.76898 3.38801C6.87674 3.70407 7.05118 3.99327 7.28048 4.23603C7.50977 4.47878 7.78857 4.66941 8.09798 4.79501L8.22398 4.84201L9.60098 5.31201C10.621 5.66101 10.653 7.07201 9.69398 7.48501L9.60098 7.52001L8.22398 7.99001C7.90801 8.09766 7.61887 8.27194 7.37612 8.50106C7.13337 8.73018 6.94269 9.00878 6.81698 9.31801L6.76998 9.44401L6.29998 10.822C5.95098 11.842 4.53998 11.873 4.12798 10.915L4.09098 10.822L3.62098 9.44501C3.51343 9.12914 3.3393 8.84006 3.11036 8.59732C2.88142 8.35457 2.60301 8.16384 2.29398 8.03801L2.16798 7.99101L0.790977 7.52101C-0.232023 7.17101 -0.262023 5.76101 0.696977 5.34801L0.789977 5.31201L2.16698 4.84201C2.48285 4.73412 2.77186 4.55963 3.01444 4.33034C3.25701 4.10105 3.44749 3.82231 3.57298 3.51301L3.61998 3.38701L4.08998 2.01101Z"/></svg></span><span class="sp"><svg class="star" viewBox="0 0 12 12"><path fill="currentColor" d="M4.08998 2.01101C4.43998 0.991006 5.84998 0.959006 6.26298 1.91801L6.29798 2.01201L6.76898 3.38801C6.87674 3.70407 7.05118 3.99327 7.28048 4.23603C7.50977 4.47878 7.78857 4.66941 8.09798 4.79501L8.22398 4.84201L9.60098 5.31201C10.621 5.66101 10.653 7.07201 9.69398 7.48501L9.60098 7.52001L8.22398 7.99001C7.90801 8.09766 7.61887 8.27194 7.37612 8.50106C7.13337 8.73018 6.94269 9.00878 6.81698 9.31801L6.76998 9.44401L6.29998 10.822C5.95098 11.842 4.53998 11.873 4.12798 10.915L4.09098 10.822L3.62098 9.44501C3.51343 9.12914 3.3393 8.84006 3.11036 8.59732C2.88142 8.35457 2.60301 8.16384 2.29398 8.03801L2.16798 7.99101L0.790977 7.52101C-0.232023 7.17101 -0.262023 5.76101 0.696977 5.34801L0.789977 5.31201L2.16698 4.84201C2.48285 4.73412 2.77186 4.55963 3.01444 4.33034C3.25701 4.10105 3.44749 3.82231 3.57298 3.51301L3.61998 3.38701L4.08998 2.01101Z"/></svg></span><span class="sp"><svg class="star" viewBox="0 0 12 12"><path fill="currentColor" d="M4.08998 2.01101C4.43998 0.991006 5.84998 0.959006 6.26298 1.91801L6.29798 2.01201L6.76898 3.38801C6.87674 3.70407 7.05118 3.99327 7.28048 4.23603C7.50977 4.47878 7.78857 4.66941 8.09798 4.79501L8.22398 4.84201L9.60098 5.31201C10.621 5.66101 10.653 7.07201 9.69398 7.48501L9.60098 7.52001L8.22398 7.99001C7.90801 8.09766 7.61887 8.27194 7.37612 8.50106C7.13337 8.73018 6.94269 9.00878 6.81698 9.31801L6.76998 9.44401L6.29998 10.822C5.95098 11.842 4.53998 11.873 4.12798 10.915L4.09098 10.822L3.62098 9.44501C3.51343 9.12914 3.3393 8.84006 3.11036 8.59732C2.88142 8.35457 2.60301 8.16384 2.29398 8.03801L2.16798 7.99101L0.790977 7.52101C-0.232023 7.17101 -0.262023 5.76101 0.696977 5.34801L0.789977 5.31201L2.16698 4.84201C2.48285 4.73412 2.77186 4.55963 3.01444 4.33034C3.25701 4.10105 3.44749 3.82231 3.57298 3.51301L3.61998 3.38701L4.08998 2.01101Z"/></svg></span><span class="sp"><svg class="star" viewBox="0 0 12 12"><path fill="currentColor" d="M4.08998 2.01101C4.43998 0.991006 5.84998 0.959006 6.26298 1.91801L6.29798 2.01201L6.76898 3.38801C6.87674 3.70407 7.05118 3.99327 7.28048 4.23603C7.50977 4.47878 7.78857 4.66941 8.09798 4.79501L8.22398 4.84201L9.60098 5.31201C10.621 5.66101 10.653 7.07201 9.69398 7.48501L9.60098 7.52001L8.22398 7.99001C7.90801 8.09766 7.61887 8.27194 7.37612 8.50106C7.13337 8.73018 6.94269 9.00878 6.81698 9.31801L6.76998 9.44401L6.29998 10.822C5.95098 11.842 4.53998 11.873 4.12798 10.915L4.09098 10.822L3.62098 9.44501C3.51343 9.12914 3.3393 8.84006 3.11036 8.59732C2.88142 8.35457 2.60301 8.16384 2.29398 8.03801L2.16798 7.99101L0.790977 7.52101C-0.232023 7.17101 -0.262023 5.76101 0.696977 5.34801L0.789977 5.31201L2.16698 4.84201C2.48285 4.73412 2.77186 4.55963 3.01444 4.33034C3.25701 4.10105 3.44749 3.82231 3.57298 3.51301L3.61998 3.38701L4.08998 2.01101Z"/></svg></span><span class="sp"><svg class="star" viewBox="0 0 12 12"><path fill="currentColor" d="M4.08998 2.01101C4.43998 0.991006 5.84998 0.959006 6.26298 1.91801L6.29798 2.01201L6.76898 3.38801C6.87674 3.70407 7.05118 3.99327 7.28048 4.23603C7.50977 4.47878 7.78857 4.66941 8.09798 4.79501L8.22398 4.84201L9.60098 5.31201C10.621 5.66101 10.653 7.07201 9.69398 7.48501L9.60098 7.52001L8.22398 7.99001C7.90801 8.09766 7.61887 8.27194 7.37612 8.50106C7.13337 8.73018 6.94269 9.00878 6.81698 9.31801L6.76998 9.44401L6.29998 10.822C5.95098 11.842 4.53998 11.873 4.12798 10.915L4.09098 10.822L3.62098 9.44501C3.51343 9.12914 3.3393 8.84006 3.11036 8.59732C2.88142 8.35457 2.60301 8.16384 2.29398 8.03801L2.16798 7.99101L0.790977 7.52101C-0.232023 7.17101 -0.262023 5.76101 0.696977 5.34801L0.789977 5.31201L2.16698 4.84201C2.48285 4.73412 2.77186 4.55963 3.01444 4.33034C3.25701 4.10105 3.44749 3.82231 3.57298 3.51301L3.61998 3.38701L4.08998 2.01101Z"/></svg></span></span></div>
                 <div class="dai-rb">
                   <div class="dai-nm">정보성<b class="ai-tag"><svg class="ai-svg" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.6553 17.784V0H21.2073V17.784H17.6553Z" fill="currentColor"/><path d="M0 17.784L5.688 0H9.888L15.576 17.784H11.832L9.312 8.52C9.04 7.592 8.776 6.632 8.52 5.64C8.28 4.632 8.024 3.656 7.752 2.712H7.656C7.432 3.672 7.184 4.648 6.912 5.64C6.656 6.632 6.4 7.592 6.144 8.52L3.6 17.784H0ZM3.528 13.224V10.464H11.976V13.224H3.528Z" fill="currentColor"/></svg></b><span>데이터 분석</span></div>
-                  <div class="dai-a">네, 데이터를 연결하고 분석을 실행할게요.</div>
+                  <div class="dai-a">네, 데이터 연결하고 무결성 검증부터 진행할게요.</div>
                   <div class="dai-log">
                     <div class="dlog dlr1"><span class="dlic"><span class="dlrun"></span><span class="dlchk">✓</span></span><span>데이터 연결 · 정제</span></div>
                     <div class="dlog dlr2"><span class="dlic"><span class="dlrun"></span><span class="dlchk">✓</span></span><span>분석 실행 (기법 적용)</span></div>
                     <div class="dlog dlr3"><span class="dlic"><span class="dlrun"></span><span class="dlchk">✓</span></span><span>결과 도식화 · 인사이트 도출</span></div>
                   </div>
                   <div class="dai-done" id="daiDone"></div>
+                  <div class="dai-after">분석 결과를 보여드릴게요.</div>
                 </div>
               </div>
+              <div class="dai-q dai-q2"><span class="mention">@정보성</span> 이번에 광고 분석도 보여줘</div>
+              <div class="dai-after dai-r2">네, 광고 성과 분석 결과를 보여드릴게요.</div>
             </div>
             <div class="dai-input"><span class="dai-plus">＋</span><span class="dai-ph">AI에게 메시지…</span><span class="dai-send"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span></div>
           </div>
@@ -3096,6 +3117,8 @@
 #flow .wfghost .nic svg{width:14px;height:14px}
 @keyframes wfAppear{0%{opacity:0}100%{opacity:1}}
 @keyframes wfRise{0%{opacity:0;transform:translateY(44px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes wfFall{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(44px)}}
+@keyframes wfUnflow{0%{transform:translateY(0)}100%{transform:translateY(47px)}}
 @keyframes wfSlotOut{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.92)}}
 @keyframes wfGhost{0%{opacity:0;transform:translate(-225px,200px) scale(.82)}14%{opacity:1}70%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(0,0) scale(1)}}
 @keyframes wfBtnPulse{0%{box-shadow:0 0 0 0 rgba(108,92,239,.5)}100%{box-shadow:0 0 0 9px rgba(108,92,239,0)}}
@@ -3175,6 +3198,8 @@
 #flow.show.resetting .nres{animation:fadeClear .45s ease both;animation-delay:.05s}
 #flow.show.resetting .ncnt{animation:fadeClear .45s ease both;animation-delay:.05s}
 #flow.show.resetting .wfnode{animation:wfNodeReset .5s ease both}
+#flow.show.resetting .n-auto{animation:wfFall .45s cubic-bezier(.4,0,.6,1) both}
+#flow.show.resetting .n-sales,#flow.show.resetting .n-supp,#flow.show.resetting .n-plan{animation:wfUnflow .45s cubic-bezier(.4,0,.6,1) both}
 #flow.show.resetting .wfai-q,#flow.show.resetting .wfai-r{animation:fadeClear .45s ease both}
 #flow.show.resetting .wfai-r{animation-delay:.06s}
 #flow.show.resetting .t-done{animation:fadeClear .4s ease both}
@@ -4195,7 +4220,7 @@
 
     var SETS={
       whitening:{title:'화장품 성분 분석',tool:'분석 도구: 회귀·상관·다변량·분포',data:'데이터: 전성분 248종 · 1,240 측정값',seq:true,
-        ask:'내가 첨부한 데이터로 화장품 전성분 분석 세트 설정해줘',done:'<b>분석 완료</b> · 248종 중 핵심 효능 14종 · 주의·규제 3종 도출',
+        ask:'내가 첨부한 데이터로 화장품 전성분 분석 세트 설정해주고 완료되면 결과 보여줘',done:'<b>분석 완료</b> · 248종 중 핵심 효능 14종 · 주의·규제 3종 도출',
         stats:[['분석 성분','248','종'],['핵심 효능 성분','14','종'],['주의·규제 성분','3','종'],['데이터 신뢰도 R²','0.94','']],
         charts:[[mb_reg,'성분 농도–효능 회귀','회귀',false],[mb_heat,'성분 상관 히트맵','상관',false],[mb_box,'성분군 분포','분포',false],[mb_pca,'성분 프로파일 PCA','다변량',false],[mb_ctrl,'배치 품질 관리도','SPC',false],[mb_uv,'성분 UV 흡광','분광',false]],
         flow:[['데이터 소스','db','#6c5cef','전성분 데이터 · 248종','done',60,150,false],['전처리·정제','clean','#34c98a','결측 보간·표준화','done',220,150,false],['통계 분석','stat','#8E7FEC','회귀·상관·PCA','run',380,150,false],['AI 해석','ai','#7C6FF0','효능·주의성분 도출','run',540,150,true],['결과 도식화','chart','#E8943A','분석 차트','wait',700,150,false]],
@@ -4216,9 +4241,9 @@
     };
     var gid=function(i){return document.getElementById(i);};
     var AISVG2='<svg class="ai-svg2" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.6553 17.784V0H21.2073V17.784H17.6553Z" fill="currentColor"/><path d="M0 17.784L5.688 0H9.888L15.576 17.784H11.832L9.312 8.52C9.04 7.592 8.776 6.632 8.52 5.64C8.28 4.632 8.024 3.656 7.752 2.712H7.656C7.432 3.672 7.184 4.648 6.912 5.64C6.656 6.632 6.4 7.592 6.144 8.52L3.6 17.784H0ZM3.528 13.224V10.464H11.976V13.224H3.528Z" fill="currentColor"/></svg>';
-    function render(key,base){base=base||2.0;var S=SETS[key];
+    function render(key,base,skipAI){base=base||2.0;var S=SETS[key];
       gid('dTitle').textContent=S.title;gid('ctxTool').textContent=S.tool;gid('ctxData').textContent=S.data;
-      gid('daiQ').innerHTML='<span class="mention">@정보성</span><b class="ai-badge">'+AISVG2+'</b> '+S.ask;gid('daiDone').innerHTML=S.done;
+      if(!skipAI){gid('daiQ').innerHTML='<span class="mention">@정보성</span><b class="ai-badge">'+AISVG2+'</b> '+S.ask;gid('daiDone').innerHTML=S.done;}   /* skipAI: 광고 phase에서 1번째 턴 대화 유지 */
       var st=gid('dStats'),g=gid('dGrid'),ex=gid('dExtra');st.innerHTML='';g.innerHTML='';g.className='';ex.innerHTML='';
       function chartCard(c,d){var card=document.createElement('div');card.className='ccard aCard'+(c[3]?' wide':'');card.style.animationDelay=d.toFixed(2)+'s';card.innerHTML='<div class="ctitle"><b>'+c[1]+'</b><span class="ctag">'+c[2]+'</span></div>';card.appendChild(c[0](d+.15));return card;}
       function rowsHTML(rows){return rows.map(function(f){return '<div class="dfind-row"><b>'+f[0]+'</b><span>'+f[1]+'</span></div>';}).join('');}
@@ -4227,18 +4252,18 @@
       if(S.layout==='dash'){
         st.style.display='none';g.className='dashg';
         var hrow=document.createElement('div');hrow.className='dash-hero2 aCard';hrow.style.animationDelay=base.toFixed(2)+'s';
-        hrow.innerHTML=S.heroes.map(function(h,i){return '<div class="dhero'+(i===0?' lead':'')+'"><div class="dh-l">'+h[0]+'</div><div class="dh-v">'+cup(h[1],base+0.2+i*0.25)+'<span>'+h[2]+'</span></div><div class="dh-d">'+h[3]+'</div></div>';}).join('');
+        hrow.innerHTML=S.heroes.map(function(h,i){return '<div class="dhero'+(i===0?' lead':'')+'"><div class="dh-l">'+h[0]+'</div><div class="dh-v">'+cup(h[1],base+0.12+i*0.15)+'<span>'+h[2]+'</span></div><div class="dh-d">'+h[3]+'</div></div>';}).join('');
         g.appendChild(hrow);
-        var krow=document.createElement('div');krow.className='dash-kpis4 aCard';krow.style.animationDelay=(base+0.3).toFixed(2)+'s';
-        krow.innerHTML=S.kpis.map(function(t,i){return '<div class="stat"><div class="k">'+t[0]+'</div><div class="v">'+cup(t[1],base+0.55+i*0.12)+(t[2]?'<small>'+t[2]+'</small>':'')+'</div></div>';}).join('');
+        var krow=document.createElement('div');krow.className='dash-kpis4 aCard';krow.style.animationDelay=(base+0.18).toFixed(2)+'s';
+        krow.innerHTML=S.kpis.map(function(t,i){return '<div class="stat"><div class="k">'+t[0]+'</div><div class="v">'+cup(t[1],base+0.33+i*0.07)+(t[2]?'<small>'+t[2]+'</small>':'')+'</div></div>';}).join('');
         g.appendChild(krow);
-        for(var r=0;r<S.charts.length;r+=2){var row=document.createElement('div');row.className='dash-grid2';for(var j=r;j<Math.min(r+2,S.charts.length);j++){row.appendChild(chartCard(S.charts[j],base+.35+j*.32));}g.appendChild(row);}
+        for(var r=0;r<S.charts.length;r+=2){var row=document.createElement('div');row.className='dash-grid2';for(var j=r;j<Math.min(r+2,S.charts.length);j++){row.appendChild(chartCard(S.charts[j],base+.21+j*.19));}g.appendChild(row);}
         if(S.finds){ex.innerHTML=extraHTML(S,'핵심 인사이트',base);}
       }else{
         st.style.display='';
         S.stats.forEach(function(t,i){var d=document.createElement('div');d.className='stat aStat';d.style.animationDelay=(base+i*.08).toFixed(2)+'s';d.innerHTML='<div class="k">'+t[0]+'</div><div class="v">'+cup(t[1],base+i*0.12)+(t[2]?'<small>'+t[2]+'</small>':'')+'</div>';st.appendChild(d);});
         g.className='dcar';var tr=document.createElement('div');tr.className='dcar-track';
-        S.charts.forEach(function(c,i){var sl=document.createElement('div');sl.className='dcar-slide';sl.appendChild(chartCard(c,base+Math.max(0,i-1)*1.8));tr.appendChild(sl);});
+        S.charts.forEach(function(c,i){var sl=document.createElement('div');sl.className='dcar-slide';sl.appendChild(chartCard(c,base+(i<2?0:(i<4?1.2:2.45))));tr.appendChild(sl);});   /* 차트 등장 = 2개씩 뷰 진입(1·2=0s, 3·4=1.2s, 5·6=2.45s)과 동기화 */
         g.appendChild(tr);
         if(S.finds){ex.innerHTML=extraHTML(S,'핵심 발견',base);}
       }}
@@ -4264,9 +4289,8 @@
       var pos={},SEQ=!!S.seq;
       S.flow.forEach(function(n,i){var col=MUTED[n[1]]||'#7a828f';var st=SEQ?'':n[4];var el=document.createElement('div');el.className='dnode '+st+(n[7]?' ai':'');el.style.left=n[5]+'px';el.style.top=n[6]+'px';el.setAttribute('data-i',i);el.setAttribute('data-fx',n[5]);el.setAttribute('data-ai',n[7]?'1':'0');
         el.innerHTML='<div class="dtile" style="background:'+col+'">'+(ICONS[n[1]]||'')+'</div><div class="dlabel">'+n[0]+'</div><div class="dcap">'+n[3]+'</div><div class="dstat"></div><svg class="dring" viewBox="0 0 70 70"><circle class="dring-bg" cx="35" cy="35" r="32"/><circle class="dring-c" cx="35" cy="35" r="32"/></svg>';
-        if(SEQ){ if(i===0){el.style.opacity='0';} }   /* 데이터소스(0): 드래그로 등장 / 나머지 4개: 이미 배치·연결된 상태로 시작 */
+        if(SEQ){ el.style.opacity=(i===0?'0':'1'); }   /* SEQ: 위치·투명도는 tick이 제어(빌드=이미 배치 / 마지막 전환=생성) */
         else{el.style.animation='dzNodeIn .45s cubic-bezier(.34,1.5,.5,1) '+(0.4+i*0.16).toFixed(2)+'s both';}
-        /* [보관] 초기 4개 노드 등장 스태거 효과(마지막에 재사용 예정): el.style.animation='dzNodeIn .45s cubic-bezier(.34,1.5,.5,1) '+(0.4+(i-1)*0.16).toFixed(2)+'s both'; */
         stage.appendChild(el);pos[i]={cx:n[5]+29,cy:n[6]+29};});
       var DEG=Math.PI/180,rA=37,hasOut={},hasIn={};(S.wires||[]).forEach(function(w){hasOut[w[0]]=1;hasIn[w[1]]=1;});
       function P(cx,cy,r,a){return [cx+r*Math.cos(a),cy+r*Math.sin(a)];}
@@ -4287,8 +4311,9 @@
       if(SEQ){
         var BDSTAR='<svg class="aistar bdstar" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path class="s-big" fill="currentColor" d="M4.08998 2.01101C4.43998 0.991006 5.84998 0.959006 6.26298 1.91801L6.29798 2.01201L6.76898 3.38801C6.87674 3.70407 7.05118 3.99327 7.28048 4.23603C7.50977 4.47878 7.78857 4.66941 8.09798 4.79501L8.22398 4.84201L9.60098 5.31201C10.621 5.66101 10.653 7.07201 9.69398 7.48501L9.60098 7.52001L8.22398 7.99001C7.90801 8.09766 7.61887 8.27194 7.37612 8.50106C7.13337 8.73018 6.94269 9.00878 6.81698 9.31801L6.76998 9.44401L6.29998 10.822C5.95098 11.842 4.53998 11.873 4.12798 10.915L4.09098 10.822L3.62098 9.44501C3.51343 9.12914 3.3393 8.84006 3.11036 8.59732C2.88142 8.35457 2.60301 8.16384 2.29398 8.03801L2.16798 7.99101L0.790977 7.52101C-0.232023 7.17101 -0.262023 5.76101 0.696977 5.34801L0.789977 5.31201L2.16698 4.84201C2.48285 4.73412 2.77186 4.55963 3.01444 4.33034C3.25701 4.10105 3.44749 3.82231 3.57298 3.51301L3.61998 3.38701L4.08998 2.01101Z"/><path class="s-sm" fill="currentColor" d="M9.86098 5.97109e-06C9.97015 -0.000478195 10.0772 0.0298588 10.1699 0.0875286C10.2626 0.145198 10.3372 0.227859 10.385 0.326006L10.413 0.395006L10.617 0.993006L11.217 1.19701C11.3266 1.234 11.4228 1.30279 11.4932 1.39463C11.5637 1.48646 11.6052 1.59718 11.6125 1.71268C11.6198 1.82818 11.5925 1.94324 11.5342 2.04321C11.4759 2.14317 11.3891 2.22351 11.285 2.27401L11.216 2.30201L10.618 2.50601L10.414 3.10501C10.3764 3.21402 10.3075 3.30947 10.2158 3.37935C10.124 3.44923 10.0137 3.49039 9.89864 3.49767C9.78358 3.50494 9.66894 3.47799 9.56916 3.42021C9.46939 3.36244 9.38895 3.27642 9.33798 3.17301L9.30898 3.10501L9.10498 2.50601L8.50598 2.30201C8.39656 2.26496 8.30061 2.19623 8.23032 2.10456C8.16002 2.01289 8.11854 1.9024 8.11115 1.78711C8.10376 1.67183 8.13078 1.55694 8.18879 1.45704C8.2468 1.35714 8.33319 1.27673 8.43698 1.22601L8.50698 1.19801L9.10498 0.994006L9.30898 0.394006C9.34801 0.278718 9.42232 0.178631 9.52139 0.107919C9.62046 0.0372069 9.73926 -0.000546173 9.86098 5.97109e-06Z"/></svg>';
         var PLAYSVG='<svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="margin-right:1px"><polygon points="6 3 20 12 6 21 6 3"/></svg>';
-        var ov=document.createElement('div');ov.className='dwork';cv.appendChild(ov);
-        var bd=document.createElement('div');bd.className='dwork-badge';bd.innerHTML='<span class="sp">'+BDSTAR+'</span> AI 작업 중';cv.appendChild(bd);
+        var fvw=cv.parentNode;Array.prototype.slice.call(fvw.querySelectorAll('.dwork,.dwork-badge')).forEach(function(x){x.parentNode.removeChild(x);});   /* 캔버스+팔레트 영역에 테두리 — 중복 제거 후 재부착 */
+        var ov=document.createElement('div');ov.className='dwork';fvw.appendChild(ov);
+        var bd=document.createElement('div');bd.className='dwork-badge';bd.innerHTML='<span class="sp">'+BDSTAR+'</span> AI 작업 중';fvw.appendChild(bd);
         var slot=document.createElement('div');slot.className='dslot';slot.style.left='60px';slot.style.top='150px';stage.appendChild(slot);
         var gh=document.createElement('div');gh.className='dghost';gh.style.left='60px';gh.style.top='150px';gh.innerHTML='<div class="dtile" style="background:'+(MUTED.db||'#6f7fa6')+'">'+(ICONS.db||'')+'</div>';stage.appendChild(gh);
         var tr=document.createElement('div');tr.className='dtoast t-run';tr.innerHTML=PLAYSVG+' 데이터 분석 실행';cv.appendChild(tr);
@@ -4305,6 +4330,7 @@
     function manualSync(){if(window.__sweep){try{window.__sweep();}catch(e){}}}
     function setActiveList(key){var now=el().toFixed(2);panel.querySelectorAll('.witem').forEach(function(w){var sel=w.getAttribute('data-set')===key,wasOn=w.classList.contains('on');w.classList.toggle('on',sel);if(sel&&!wasOn){w.style.animation='dzPick .42s cubic-bezier(.34,1.5,.5,1) '+now+'s both';}else if(!sel&&wasOn){w.style.animation='dzUnpick .34s ease '+now+'s both';}});}
     function loadSet(key,base,tab){curSet=key;setActiveList(key);render(key,base);renderFlow(key);showTab(tab);}
+    function loadAd(base){curSet='ad';setActiveList('ad');render('ad',base,true);renderFlow('ad');showTab('result');}   /* 광고 phase: 1번째 대화 유지(skipAI)하고 차트만 광고로 */
     panel.querySelectorAll('.dtab').forEach(function(t){t.addEventListener('click',function(){__seqManual=true;var p=t.getAttribute('data-p');if(p==='result')render(curSet,manualBase());showTab(p);manualSync();});});
     panel.querySelectorAll('.witem[data-set]').forEach(function(w){w.addEventListener('click',function(){__seqManual=true;loadSet(w.getAttribute('data-set'),manualBase(),'result');manualSync();});});
     loadSet('whitening',0.5,'flow');
@@ -4315,8 +4341,8 @@
     window.__TICK=window.__TICK||{};
     window.__TICK.dataSeq=function(T){var dp=document.querySelector('.panel.show');if(!dp||dp.id!=='data')return;var t=T/1000;
       if(t<0.4)__seqManual=false;
-      if(__seqManual)return;var ph=t<10.9?0:1;if(ph===__seqPhase)return;__seqPhase=ph;
-      if(ph===0){loadSet('whitening',0.5,'flow');}else{loadSet('whitening',11.0,'result');}};
+      if(__seqManual)return;var ph=t<7.5?0:(t<12.2?1:(t<15.5?2:3));if(ph===__seqPhase)return;__seqPhase=ph;
+      if(ph===0){loadSet('whitening',0.5,'flow');}else if(ph===1){loadSet('whitening',7.7,'result');}else if(ph===2){loadAd(12.4);}else{loadSet('whitening',0.5,'flow');}};   /* ph3(15.5s~): 화장품 분석으로 전환+노드 생성(마지막) */
     /* 설정(flow) 탭 빌드 시퀀스: 4개 노드(전처리·정제~결과 도식화)가 좌우 여백 동일하게 가운데 정렬·점선 연결 →
        데이터 소스 노드가 팔레트에서 위로 드래그되어 좌측에 삽입되며 4개가 우측으로 밀려 5개 등간격 → 순차 실행.
        위치·투명도는 T의 순수함수(시크/루프/역방향 안전). data-fx=최종x, 초기4개는 최종-87(가운데 정렬). */
@@ -4326,23 +4352,29 @@
       var t=T/1000;if(__seqManual)t=12;                                  /* 수동 전환 시 완료 상태로 고정 */
       function cl(v,a,b){return v<a?a:(v>b?b:v);}function eo(p){return 1-Math.pow(1-p,3);}
       function bo(p){if(p<=0)return 0;if(p>=1)return 1;var c=2.4;return 1+(c+1)*Math.pow(p-1,3)+c*Math.pow(p-1,2);}  /* back-out: 안착 시 살짝 오버슈트(반동) */
-      var RUN=[4.6,5.32,6.08,6.95,7.72],RUND=[0.7,0.62,0.82,0.66,0.78];   /* 노드별 실행 시작·길이를 조금씩 다르게(유기적 느낌) */
-      var sp=eo(cl((t-2.3)/0.42,0,1)),NX={};                             /* 우측 밀기: 2.3s부터 빠르게 */
-      cv.querySelectorAll('.dnode').forEach(function(el){var i=+el.getAttribute('data-i'),fx=parseFloat(el.getAttribute('data-fx')),lx;
-        if(i===0){ lx=fx;                                                 /* 데이터 소스: 좌측 슬롯에 안착 */
-          var ap=cl((t-2.75)/0.25,0,1),ps=cl((t-2.75)/0.34,0,1);
-          el.style.opacity=ap.toFixed(3);el.style.transform='scale('+(0.6+0.4*bo(ps)).toFixed(3)+')';
-        } else { lx=(fx-87)+87*sp; }                                      /* 나머지 4개: 가운데정렬(−87)→최종 */
+      var RUN=[2.9,3.49,4.02,4.64,5.44],RUND=[0.49,0.43,0.52,0.7,0.55];
+      var sp=eo(cl((t-1.7)/0.42,0,1)),NX={};                             /* 우측 밀기: 1.7s부터 */
+      var ENDg=(t>=15.5),tg=t-15.5;                                      /* 마지막 전환(15.5s~): 화장품 분석 4노드 생성 */
+      cv.querySelectorAll('.dnode').forEach(function(el){var i=+el.getAttribute('data-i'),fx=parseFloat(el.getAttribute('data-fx')),aiCls=(el.getAttribute('data-ai')==='1'?' ai':''),lx;
+        var ds=el.querySelector('.dstat'),ring=el.querySelector('.dring'),rc=ring&&ring.querySelector('.dring-c');
+        if(ENDg){                                                         /* 마지막 전환: 초기 4노드(가운데정렬) 생성, 데이터소스 숨김 */
+          lx=(i===0)?fx:(fx-87);el.style.left=lx.toFixed(1)+'px';NX[i]=lx;el.className='dnode'+aiCls;
+          if(ds){ds.className='dstat';ds.style.opacity='0';}if(ring)ring.style.opacity='0';
+          if(i===0){el.style.opacity='0';}
+          else{var ge=cl((tg-(i-1)*0.13)/0.4,0,1);el.style.opacity=ge.toFixed(3);el.style.transform='scale('+(0.5+0.5*bo(ge)).toFixed(3)+')';}
+          return;
+        }
+        if(i===0){ lx=fx;var ap=cl((t-2.0)/0.25,0,1),ps=cl((t-2.0)/0.3,0,1);el.style.opacity=ap.toFixed(3);el.style.transform='scale('+(0.6+0.4*bo(ps)).toFixed(3)+')'; }   /* 데이터 소스: 안착 */
+        else { lx=(fx-87)+87*sp;el.style.opacity='1';el.style.transform='scale(1)'; }            /* 초기 4개: 이미 배치(가운데→최종) */
         el.style.left=lx.toFixed(1)+'px';NX[i]=lx;
         var dur=RUND[i],dEnd=RUN[i]+dur;
         var st=(t<RUN[0])?'':(t<RUN[i]?'wait':(t<dEnd?'run':'done'));
-        el.className='dnode'+(el.getAttribute('data-ai')==='1'?' ai':'')+(st?(' '+st):'');
-        var ds=el.querySelector('.dstat');if(ds){ds.className='dstat'+(st==='done'?' done':'');
-          if(st==='done'){var pp=cl((t-dEnd)/0.28,0,1);ds.textContent='✓';ds.style.opacity=pp.toFixed(3);ds.style.transform='scale('+(0.3+0.7*bo(pp)).toFixed(3)+')';}   /* 체크 팝(오버슈트) */
+        el.className='dnode'+aiCls+(st?(' '+st):'');
+        if(ds){ds.className='dstat'+(st==='done'?' done':'');
+          if(st==='done'){var pp=cl((t-dEnd)/0.28,0,1);ds.textContent='✓';ds.style.opacity=pp.toFixed(3);ds.style.transform='scale('+(0.3+0.7*bo(pp)).toFixed(3)+')';}
           else{ds.textContent='';ds.style.opacity='0';ds.style.transform='scale(0.3)';}
         }
-        var ring=el.querySelector('.dring'),rc=ring&&ring.querySelector('.dring-c');
-        if(ring&&rc){var RC=201.06;rc.setAttribute('stroke-dasharray',RC);                       /* 둘레 도넛: run=회전+채움, done=완성 후 페이드 */
+        if(ring&&rc){var RC=201.06;rc.setAttribute('stroke-dasharray',RC);
           if(st==='run'){var pr=cl((t-RUN[i])/dur,0,1);ring.style.opacity='1';rc.style.strokeDashoffset=(RC*(1-pr)).toFixed(1);ring.style.transform='rotate('+Math.round((t*320)%360)+'deg)';}
           else if(st==='done'){ring.style.opacity=cl(1-(t-dEnd)/0.3,0,1).toFixed(3);rc.style.strokeDashoffset='0';ring.style.transform='rotate(0deg)';}
           else{ring.style.opacity='0';}
@@ -4355,8 +4387,14 @@
       function _P(cx,cy,r,a){return [cx+r*Math.cos(a),cy+r*Math.sin(a)];}
       function _ctr(i){return {cx:NX[i]+29,cy:179};}
       function _lp(P,Q,u){return [P[0]+(Q[0]-P[0])*u,P[1]+(Q[1]-P[1])*u];}
+      function _hx(c){c=c.replace('#','');return [parseInt(c.substr(0,2),16),parseInt(c.substr(2,2),16),parseInt(c.substr(4,2),16)];}
+      function _mix(a,b,u){var A=_hx(a),B=_hx(b);return 'rgb('+Math.round(A[0]+(B[0]-A[0])*u)+','+Math.round(A[1]+(B[1]-A[1])*u)+','+Math.round(A[2]+(B[2]-A[2])*u)+')';}
       [[0,1],[1,2],[2,3],[3,4]].forEach(function(w){var ai=w[0],bi=w[1];if(NX[ai]==null||NX[bi]==null)return;
-        var fArcA=(ai===0)?cl((t-3.1)/0.24,0,1):1,fArcB=(ai===0)?cl((t-3.3)/0.24,0,1):1,fLine=(ai===0)?cl((t-3.25)/0.3,0,1):1;if(fArcA<=0)return;   /* db호(3.1s)→선 시작(3.25s, 호 사이)→전처리호(3.3s) 겹침 */
+        var fArcA,fLine,fArcB;
+        if(ENDg){ if(ai===0)return;   /* 생성: db 연결선 숨김 / 초기 4노드 호·점선 draw-on */
+          var g=cl((tg-(0.35+ai*0.13))/0.25,0,1),gl=cl((tg-(0.5+ai*0.13))/0.25,0,1);fArcA=g;fArcB=g;fLine=gl;
+        } else { fArcA=(ai===0)?cl((t-2.3)/0.2,0,1):1;fLine=(ai===0)?cl((t-2.3)/0.35,0,1):1;fArcB=(ai===0)?cl((t-2.6)/0.2,0,1):1; }   /* 빌드: 초기 4노드 호·점선 즉시 / db는 안착 후 */
+        if(fArcA<=0)return;
         var A=_ctr(ai),B=_ctr(bi),colA=MUTED[fl[ai][1]]||'#7a828f',colB=MUTED[fl[bi][1]]||'#7a828f';
         function drawArc(c,aTop,aBot,col,sweep,fr){var s=_P(c.cx,c.cy,rA,aTop),e=_P(c.cx,c.cy,rA,aBot),len=rA*Math.abs(aBot-aTop);
           var p=document.createElementNS(ns,'path');p.setAttribute('d','M'+s[0]+','+s[1]+' A'+rA+' '+rA+' 0 0 '+sweep+' '+e[0]+','+e[1]);p.setAttribute('fill','none');p.setAttribute('stroke',col);p.setAttribute('stroke-opacity','0.55');p.setAttribute('stroke-width','2.2');p.setAttribute('stroke-linecap','round');
@@ -4370,21 +4408,22 @@
         if(u>0.001){var pw=document.createElementNS(ns,'path');pw.setAttribute('d','M'+od[0]+','+od[1]+' C'+a[0]+','+a[1]+' '+d[0]+','+d[1]+' '+f[0]+','+f[1]);pw.setAttribute('fill','none');pw.setAttribute('stroke','#c6cedb');pw.setAttribute('stroke-width','2');pw.setAttribute('stroke-linecap','round');pw.setAttribute('stroke-dasharray','4 4');ws.appendChild(pw);}
         function dot(pt,col,o){var cc=document.createElementNS(ns,'circle');cc.setAttribute('cx',pt[0]);cc.setAttribute('cy',pt[1]);cc.setAttribute('r','3.4');cc.setAttribute('fill',col);cc.setAttribute('stroke','#fff');cc.setAttribute('stroke-width','1.2');cc.setAttribute('opacity',o.toFixed(3));ws.appendChild(cc);}
         dot(od,colA,fArcA);dot(id,colB,fArcB);   /* 좌 점=데이터소스 호와 / 우 점=전처리 호와 */
+        if(!ENDg){var fa=RUN[ai]+RUND[ai]*0.2,fb=RUN[bi]+RUND[bi],fi=Math.max(0,Math.min(cl((t-fa)/0.25,0,1),cl(1-(t-fb)/0.3,0,1)));   /* 실행 흐름 윈도우(빌드 한정) */
+        if(fi>0){var pf=document.createElementNS(ns,'path');pf.setAttribute('d','M'+od[0]+','+od[1]+' C'+P1[0]+','+P1[1]+' '+P2[0]+','+P2[1]+' '+id[0]+','+id[1]);pf.setAttribute('fill','none');pf.setAttribute('stroke',_mix(colA,colB,0.5));pf.setAttribute('stroke-width','2.6');pf.setAttribute('stroke-linecap','round');pf.setAttribute('stroke-dasharray','4 4');pf.setAttribute('stroke-dashoffset',(-(t*36)).toFixed(1));pf.setAttribute('opacity',fi.toFixed(3));ws.appendChild(pf);}}   /* 점선이 노드색으로 좌→우 흐름(march) */
       });
       var gh=stage.querySelector('.dghost');
-      if(gh){var gp=cl((t-2.0)/0.85,0,1),ge=eo(gp);
+      if(gh){ if(ENDg){gh.style.opacity='0';} else {var gp=cl((t-1.5)/0.6,0,1),ge=eo(gp);
         var gx=-24*(1-ge),gy=250*(1-ge),gs=0.8+0.2*ge;
         gh.style.transform='translate('+gx.toFixed(1)+'px,'+gy.toFixed(1)+'px) scale('+gs.toFixed(3)+')';
-        gh.style.opacity=(gp<0.1?(gp/0.1):(t>2.7?cl(1-(t-2.7)/0.2,0,1):1)).toFixed(3);
-      }
+        gh.style.opacity=(gp<0.1?(gp/0.1):(t>2.0?cl(1-(t-2.0)/0.2,0,1):1)).toFixed(3);} }
       var slot=stage.querySelector('.dslot');
-      if(slot)slot.style.opacity=Math.max(0,Math.min(cl((t-2.2)/0.2,0,1),cl(1-(t-2.85)/0.25,0,1))).toFixed(3);
-      var ov=cv.querySelector('.dwork'),bd=cv.querySelector('.dwork-badge');
-      var wo=Math.max(0,Math.min(cl((t-1.6)/0.4,0,1),cl(1-(t-10.5)/0.4,0,1)));
+      if(slot)slot.style.opacity=ENDg?'0':Math.max(0,Math.min(cl((t-1.7)/0.2,0,1),cl(1-(t-2.1)/0.25,0,1))).toFixed(3);
+      var ov=fv.querySelector('.dwork'),bd=fv.querySelector('.dwork-badge');
+      var wo=ENDg?0:Math.max(0,Math.min(cl((t-1.4)/0.4,0,1),cl(1-(t-7.0)/0.3,0,1)));
       if(ov)ov.style.opacity=wo.toFixed(3);if(bd)bd.style.opacity=wo.toFixed(3);
       var tr=cv.querySelector('.dtoast.t-run'),td2=cv.querySelector('.dtoast.t-done');
-      if(tr)tr.style.opacity=Math.max(0,Math.min(cl((t-4.4)/0.25,0,1),cl(1-(t-8.5)/0.25,0,1))).toFixed(3);
-      if(td2)td2.style.opacity=Math.max(0,Math.min(cl((t-8.6)/0.3,0,1),cl(1-(t-10.4)/0.3,0,1))).toFixed(3);
+      if(tr)tr.style.opacity=ENDg?'0':Math.max(0,Math.min(cl((t-2.9)/0.25,0,1),cl(1-(t-5.99)/0.25,0,1))).toFixed(3);
+      if(td2)td2.style.opacity=ENDg?'0':Math.max(0,Math.min(cl((t-6.05)/0.3,0,1),cl(1-(t-7.4)/0.3,0,1))).toFixed(3);
     };
     window.__TICK.dataCount=function(T){var dp=document.querySelector('.panel.show');if(!dp||dp.id!=='data')return;var t=T/1000,DUR=0.9;
       dp.querySelectorAll('.cup').forEach(function(el){var v=parseFloat(el.getAttribute('data-v')),dec=+el.getAttribute('data-dec'),pre=el.getAttribute('data-pre')||'',t0=parseFloat(el.getAttribute('data-t0'));
@@ -4471,6 +4510,34 @@
         var s=pool[(Math.random()*pool.length)|0];
         var a=(lastA===null)?rnd(0,Math.PI*2):(lastA+rnd(Math.PI*0.6,Math.PI*1.4)); lastA=a;
         var r=rnd(15,17), sz=rnd(5,7);
+        s.style.left=(C+r*Math.cos(a)-sz/2).toFixed(1)+'px';
+        s.style.top =(C+r*Math.sin(a)-sz/2).toFixed(1)+'px';
+        s.style.color=pick(); s.style.fontSize=sz.toFixed(1)+'px';
+        s.classList.remove('go'); void s.offsetWidth; s.classList.add('go');
+      }
+      setTimeout(popOne, rnd(300,600));
+    }
+    popOne();
+  })();
+  // 실험데이터분석: 정보성 아바타 동작 중 별 스파클 (다른 탭과 동일 로직)
+  (function(){
+    var c=document.getElementById('data'); if(!c)return;
+    var wrap=c.querySelector('.dai-ava .e8wrap'); if(!wrap)return;
+    var stars=[].slice.call(wrap.querySelectorAll('.sp'));
+    stars.forEach(function(s){s.addEventListener('animationend',function(){s.classList.remove('go');});});
+    var PAL=['#6d5cf0','#8b5cf6','#7aa0ff','#c084fc','#6366f1','#a855f7'];
+    function rnd(a,b){return a+Math.random()*(b-a);}
+    function pick(){return PAL[(Math.random()*PAL.length)|0];}
+    var WINS=[[1.3,6.4],[10.9,12.5]], lastA=null, C=13.5;
+    function inWin(el){for(var i=0;i<WINS.length;i++){if(el>=WINS[i][0]&&el<=WINS[i][1])return true;}return false;}
+    function popOne(){
+      var el=window.__elapsed?window.__elapsed():99;
+      if(c.classList.contains('show') && !window.__P && inWin(el)){
+        var free=stars.filter(function(s){return !s.classList.contains('go');});
+        var pool=free.length?free:stars;
+        var s=pool[(Math.random()*pool.length)|0];
+        var a=(lastA===null)?rnd(0,Math.PI*2):(lastA+rnd(Math.PI*0.6,Math.PI*1.4)); lastA=a;
+        var r=rnd(14,16), sz=rnd(5,7);
         s.style.left=(C+r*Math.cos(a)-sz/2).toFixed(1)+'px';
         s.style.top =(C+r*Math.sin(a)-sz/2).toFixed(1)+'px';
         s.style.color=pick(); s.style.fontSize=sz.toFixed(1)+'px';
