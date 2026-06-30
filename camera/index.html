@@ -2066,13 +2066,13 @@
   #email .em-act.danger{color:#d4574e}
   #email .em-actbar .em-star2{margin-left:auto;color:#dadae2}
   #email .em-actbar .em-star2 svg{width:16px;height:16px;display:block}
-  #email .em-doc{flex:1;min-height:0;padding:22px 26px;overflow-y:auto;scrollbar-gutter:stable}
+  #email .em-doc{flex:1;min-height:0;padding:22px 26px;overflow-y:auto}
   /* 이메일 패널 공통 — 얇은 커스텀 스크롤바 */
-  #email ::-webkit-scrollbar{width:8px;height:8px}
+  #email ::-webkit-scrollbar{width:0;height:0;display:none}
   #email ::-webkit-scrollbar-track{background:transparent}
   #email ::-webkit-scrollbar-thumb{background:#d6d6e0;border-radius:8px;border:2px solid transparent;background-clip:padding-box}
   #email ::-webkit-scrollbar-thumb:hover{background:#bcbcca;border:2px solid transparent;background-clip:padding-box}
-  #email .em-doc,#email .em-list,#email .wfai-body{scrollbar-width:thin;scrollbar-color:#d6d6e0 transparent}
+  #email .em-doc,#email .em-list,#email .wfai-body{scrollbar-width:none;-ms-overflow-style:none}
   #email .em-dsubj{font-size:18px;font-weight:700;color:var(--ink);letter-spacing:-.3px}
   #email .em-dhead{display:flex;align-items:center;gap:11px;margin-top:18px}
   #email .em-davatar{width:38px;height:38px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0}
@@ -2119,7 +2119,7 @@
   #email .em-wfai .wfai-dlog .logrow{opacity:0}
   #email .em-wfai .wfai-dlog b{color:var(--ink);font-weight:700}
   #email .em-wfai .wbub-added .okc{color:#0c9b66;font-weight:900;font-size:12px}
-  @keyframes wbubFold{0%{opacity:1;max-height:120px;margin-top:0}38%{opacity:0;max-height:120px}55%,100%{opacity:0;max-height:0;margin-top:-10px;padding-top:0;padding-bottom:0;border-top-width:0;border-bottom-width:0}}
+  @keyframes wbubFold{0%{opacity:1;max-height:76px;margin-top:0;padding-top:9px;padding-bottom:9px}100%{opacity:0;max-height:0;margin-top:-10px;padding-top:0;padding-bottom:0;border-top-width:0;border-bottom-width:0}}
   #email .em-wfai .wbub .cat{display:inline-flex;align-items:center;padding:1px 7px;border-radius:6px;font-weight:800;font-size:10.5px;margin:0 1px}
   #email .em-wfai .wbub .cat-work{background:var(--accent-soft);color:var(--accent)}
   #email .em-wfai .wbub-sum{display:flex;flex-direction:column;gap:6px}
@@ -2182,12 +2182,12 @@
   /* ── 이메일 타임라인(콘티) ──
      0~1s: 받은편지함  |  1s: 메일 열림(배지 5→4·행 선택)  |  1.25s: 사이드 축소  |  1.5s~: AI 워크스페이스 */
   #email.panel.show .em-row.sel{animation:emRowSel .35s ease both;animation-delay:0.3s}
-  #email.panel.show .em-row.sel .em-dot{animation:emFadeOut .3s ease both;animation-delay:0.3s}
-  #email.panel.show .em-fold.on .ct .c5{animation:emFadeOut .35s ease both;animation-delay:0.3s}
-  #email.panel.show .em-fold.on .ct .c4{animation:emFadeIn .35s ease both;animation-delay:0.3s}
-  #email.panel.show .em-empty{animation:emFadeOut .3s ease 0.35s both, emFadeIn .45s ease 13.32s forwards}
-  #email.panel.show .em-detail{animation:emFadeIn .3s ease 0.4s both, emFadeOut .4s ease 13.2s forwards}
-  #email.panel.show .em-detail .pane-mail{animation:emFadeIn .3s ease 0.45s both, emFadeOut .35s ease 6.75s forwards, emMailPop .5s ease 4.15s both}
+  #email.panel.show .em-row.sel .em-dot{animation:emFadeOut .3s ease 0.3s both, emFadeIn .4s ease 12.7s forwards}
+  #email.panel.show .em-fold.on .ct .c5{animation:emFadeOut .35s ease 0.3s both, emFadeIn .4s ease 12.7s forwards}
+  #email.panel.show .em-fold.on .ct .c4{animation:emFadeIn .35s ease 0.3s both, emFadeOut .4s ease 12.7s forwards}
+  #email.panel.show .em-empty{animation:emFadeOut .3s ease 0.35s both, emFadeIn .45s ease 12.82s forwards}
+  #email.panel.show .em-detail{animation:emFadeIn .3s ease 0.4s both, emFadeOut .4s ease 12.7s forwards}
+  #email.panel.show .em-detail .pane-mail{animation:emFadeIn .3s ease 0.45s both, emFadeOut .35s ease 6.4s forwards, emMailPop .5s ease 3.8s both}
   #email.panel.show .em-detail .tab-reply{animation:tabReplyIn .4s ease both;animation-delay:6.55s}
   #email.panel.show .em-detail .tab-mail{animation:tabDeact .35s ease forwards;animation-delay:6.75s}
   #email.panel.show .em-actbar{animation:emRise .4s ease both;animation-delay:0.5s}
@@ -2196,90 +2196,95 @@
   #email.panel.show .em-dto{animation:emRise .4s ease both;animation-delay:0.69s}
   #email.panel.show .em-dbody{animation:emRise .4s ease both;animation-delay:0.76s}
   /* 사이드 축소(아이콘 레일) — 상단엔 드롭다운 버튼만, 새 메일은 작성 아이콘만 */
-  #email.panel.show .em-side{animation:emSideShrink .5s cubic-bezier(.4,0,.2,1) 0.5s both, emSideBack .5s cubic-bezier(.4,0,.2,1) 13.25s forwards}
-  #email.panel.show .em-list{animation:emListShrink .5s cubic-bezier(.4,0,.2,1) 0.5s both, emListBack .5s cubic-bezier(.4,0,.2,1) 13.25s forwards}
-  #email.panel.show .em-acct .at{animation:emTextOut .35s ease 0.5s both, emTextBack .4s ease 13.3s forwards}
-  #email.panel.show .em-sync{animation:emFadeOut .35s ease 0.5s both, emFadeIn .4s ease 13.3s forwards}
-  #email.panel.show .em-fold .fl{animation:emTextOut .35s ease 0.5s both, emTextBack .4s ease 13.3s forwards}
+  #email.panel.show .em-side{animation:emSideShrink .7s cubic-bezier(.4,0,.2,1) 0.5s both, emSideBack .5s cubic-bezier(.4,0,.2,1) 12.75s forwards}
+  #email.panel.show .em-list{animation:emListShrink .7s cubic-bezier(.4,0,.2,1) 0.5s both, emListBack .5s cubic-bezier(.4,0,.2,1) 12.75s forwards}
+  #email.panel.show .em-acct .at{animation:emTextOut .35s ease 0.5s both, emTextBack .4s ease 12.8s forwards}
+  #email.panel.show .em-sync{animation:emFadeOut .35s ease 0.5s both, emFadeIn .4s ease 12.8s forwards}
+  #email.panel.show .em-fold .fl{animation:emTextOut .35s ease 0.5s both, emTextBack .4s ease 12.8s forwards}
   #email.panel.show .em-fold.on .ct{animation:emHide .3s ease both;animation-delay:0.5s}
   #email.panel.show .em-fold{animation:emFoldPad .5s cubic-bezier(.4,0,.2,1) both;animation-delay:0.5s}
   #email.panel.show .em-new .nt{animation:emNtOut .5s cubic-bezier(.4,0,.2,1) both;animation-delay:0.5s}
   /* AI 워크스페이스 등장 → 윤소율 타이핑 → 메일 분류·요약·추천·답장 제안 */
-  #email.panel.show .em-wfai{animation:emWfaiOpen .5s cubic-bezier(.4,0,.2,1) 0.75s both, emWfaiClose .45s cubic-bezier(.4,0,.2,1) 13.2s forwards}
-  #email.panel.show .em-wfai .wfai-r{animation:emRise .45s ease both;animation-delay:0.95s}
-  #email.panel.show .em-wfai .wfai-typing{animation:emFadeIn .3s ease 1.05s both, emTypeOut .35s ease 1.45s forwards}
+  #email.panel.show .em-wfai{animation:emWfaiOpen .5s cubic-bezier(.4,0,.2,1) 0.95s both, emWfaiClose .45s cubic-bezier(.4,0,.2,1) 12.7s forwards}
+  #email.panel.show .em-wfai .wfai-r{animation:emRise .45s ease both;animation-delay:1.15s}
+  #email.panel.show .em-wfai .wfai-typing{animation:emFadeIn .3s ease 1.25s both, emTypeOut .35s ease 1.65s forwards}
   /* 비행/통통 효과 없음 — 말풍선 뒤 요약 바로 펼침 */
-  #email.panel.show .em-wfai .wbub-cat{animation:emRise .4s ease both, wbubFold .5s ease forwards;animation-delay:1.6s,3.75s}
+  #email.panel.show .em-wfai .wbub-cat{animation:emRise .4s ease both, wbubFold .6s linear forwards;animation-delay:1.6s,6.4s}
   /* AI가 메일을 읽고 좌측 본문에 핵심 요약을 펼쳐 정리 */
-  #email.panel.show .em-detail .em-dsum{animation:emDsumIn .55s cubic-bezier(.34,1.5,.6,1) both;animation-delay:1.95s}
+  #email.panel.show .em-detail .em-dsum{animation:emDsumIn .55s cubic-bezier(.34,1.5,.6,1) both;animation-delay:2.2s}
+  /* [간소화] 앞쪽 "반영할까요?·반영하기·첫 추천작업·더도와드릴까요?" 생략. 답장으로 이어지는 추천작업(rec-read2)은 유지 */
+  #email.panel.show .em-wfai .wbub-kq,
+  #email.panel.show .em-wfai .kbtn,
+  #email.panel.show .em-wfai .wbub-rec-read{display:none}
   /* 하단 그라데이션 효과 제거 */
   #email.panel.show .em-detail .pane-mail::after{animation:none}
   /* 반영하기(4.45s) 직후 이메일 전체 스캔(4.5s~5.3s) → 끝나는 순간 파일이 지식으로 날아감(5.3s, __TICK) */
-  #email.panel.show .em-detail .pane-mail .em-mailscan{animation:kcScanIO .8s ease both;animation-delay:3.65s}
-  #email.panel.show .em-detail .pane-mail .em-mailbeam{animation:kcBeam .8s cubic-bezier(.45,0,.55,1) both;animation-delay:3.65s}
-  #email.panel.show .em-detail .pane-mail .em-mailwatch{animation:kcWatchIO .8s ease both, kcWatchPulse .8s ease-in-out infinite;animation-delay:3.65s,3.65s}
+  #email.panel.show .em-detail .pane-mail .em-mailscan{animation:kcScanIO .96s ease both;animation-delay:2.85s}
+  #email.panel.show .em-detail .pane-mail .em-mailbeam{animation:kcBeam .96s cubic-bezier(.45,0,.55,1) both;animation-delay:2.85s}
+  #email.panel.show .em-detail .pane-mail .em-mailwatch{animation:kcWatchIO .96s ease both, kcWatchPulse .8s ease-in-out infinite;animation-delay:2.85s,2.85s}
   /* 지식 반영: 제안 → 반영하기(누르면 사라짐) → 프로젝트 지식 카드 갱신(신규 항목·건수) */
-  #email.panel.show .em-wfai .wbub-kq{animation:emRise .4s ease both, wbubFold .5s ease forwards;animation-delay:2.3s,3.75s}
-  #email.panel.show .em-wfai .kbtn{animation:emRise .4s ease both, kBtnOut .6s ease forwards;animation-delay:2.7s,3.6s}
-  #email.panel.show .em-wfai .kc{animation:kCardIn .45s ease both;animation-delay:3.85s}
-  #email.panel.show .em-wfai .kc-scan{animation:kcScanIO 0.6s ease both;animation-delay:7.15s}
-  #email.panel.show .em-wfai .kc-beam{animation:kcBeam 0.6s cubic-bezier(.45,0,.55,1) both;animation-delay:7.15s}
-  #email.panel.show .em-wfai .kc-watch{animation:kcWatchIO 0.6s ease both, kcWatchPulse 0.6s ease-in-out infinite;animation-delay:7.15s,7.15s}
-  #email.panel.show .em-wfai .kc .kl.new::after{animation:scanLine .6s ease-in-out both, fileScanFade .6s ease both;animation-delay:7.75s,7.75s}
-  #email.panel.show .em-wfai .kc .kl.new{animation:kNew 1.1s ease both;animation-delay:4.55s}
-  #email.panel.show .em-wfai .kc .kl.new .kt,#email.panel.show .em-wfai .kc .kl.new .kx,#email.panel.show .em-wfai .kc .kl.new .kd{animation:emFadeIn .35s ease both;animation-delay:4.95s}
-  #email.panel.show .em-wfai .kc .kl.out{animation:kOut .6s ease both;animation-delay:4.55s}
-  #email.panel.show .em-wfai .kc .num .n0{animation:emFadeOut .35s ease both;animation-delay:5.1s}
-  #email.panel.show .em-wfai .kc .num .n1{animation:emFadeIn .35s ease both;animation-delay:5.1s}
+  #email.panel.show .em-wfai .wbub-kq{animation:emRise .4s ease both, wbubFold .6s linear forwards;animation-delay:2.3s,2.95s}
+  #email.panel.show .em-wfai .kbtn{animation:emRise .4s ease both, kBtnOut .6s ease forwards;animation-delay:2.7s,2.8s}
+  #email.panel.show .em-wfai .kc{animation:kCardIn .45s ease both;animation-delay:2.2s}
+    /* 세로 스캔(카드 빔) = ed1 "지식 참고"(7.1s)에 싱크 */
+  #email.panel.show .em-wfai .kc-scan{animation:kcScanIO 0.65s ease both;animation-delay:6.75s}
+  #email.panel.show .em-wfai .kc-beam{animation:kcBeam 0.65s cubic-bezier(.45,0,.55,1) both;animation-delay:6.75s}
+  #email.panel.show .em-wfai .kc-watch{animation:kcWatchIO 0.65s ease both, kcWatchPulse 0.6s ease-in-out infinite;animation-delay:6.75s,6.75s}
+  #email.panel.show .em-wfai .kc .kl.new::after{animation:scanLine 0.6s ease-in-out both, fileScanFade 0.6s ease both;animation-delay:7.4s,7.4s}  /* 가로 스캔 = ed2 "맥락 분석"(7.75s)에 싱크 */
+  #email.panel.show .em-wfai .kc .kl.new{animation:kNew 1.1s ease both;animation-delay:4.45s}
+  #email.panel.show .em-wfai .kc .kl.new .kt,#email.panel.show .em-wfai .kc .kl.new .kx,#email.panel.show .em-wfai .kc .kl.new .kd{animation:emFadeIn .35s ease both;animation-delay:4.65s}
+  #email.panel.show .em-wfai .kc .kl.out{animation:kOut .6s ease both;animation-delay:4.45s}
+  #email.panel.show .em-wfai .kc .num .n0{animation:emFadeOut .35s ease both;animation-delay:4.65s}
+  #email.panel.show .em-wfai .kc .num .n1{animation:emFadeIn .35s ease both;animation-delay:4.65s}
   /* 추천 작업 → 답장 */
-  #email.panel.show .em-wfai .wbub-added{animation:emRise .4s ease both, wbubFold .5s ease forwards;animation-delay:5.35s,6.7s}
-  #email.panel.show .em-wfai .wfai-dlog{animation:emReveal .4s ease both, emRecCollapse .4s ease forwards;animation-delay:7.05s,10.5s}
-  #email.panel.show .em-wfai .wfai-dlog .ed1{animation:logIn .35s ease both;animation-delay:7.1s}
-  #email.panel.show .em-wfai .wfai-dlog .ed2{animation:logIn .35s ease both;animation-delay:7.75s}
-  #email.panel.show .em-wfai .wfai-dlog .ed3{animation:logIn .35s ease both;animation-delay:8.35s}
-  #email.panel.show .em-wfai .wfai-dlog .ed1 .lrun{animation:dotPulse 1s infinite,runOut .3s ease forwards;animation-delay:7.1s,7.75s}
-  #email.panel.show .em-wfai .wfai-dlog .ed1 .lchk{animation:chkIn .3s cubic-bezier(.34,1.6,.5,1) forwards;animation-delay:7.75s}
-  #email.panel.show .em-wfai .wfai-dlog .ed2 .lrun{animation:dotPulse 1s infinite,runOut .3s ease forwards;animation-delay:7.75s,8.35s}
-  #email.panel.show .em-wfai .wfai-dlog .ed2 .lchk{animation:chkIn .3s cubic-bezier(.34,1.6,.5,1) forwards;animation-delay:8.35s}
-  #email.panel.show .em-wfai .wfai-dlog .ed3 .lrun{animation:dotPulse 1s infinite;animation-delay:8.35s}
-  #email.panel.show .em-wfai .wbub-rec-read{animation:emRise .45s cubic-bezier(.34,1.5,.6,1) both, emRecCollapse .4s ease forwards;animation-delay:3.1s,3.75s}
-  #email.panel.show .em-wfai .wbub-rec-read2{animation:emRise .45s cubic-bezier(.34,1.5,.6,1) both, emRecCollapse .4s ease forwards;animation-delay:5.75s,6.7s}
+  #email.panel.show .em-wfai .wbub-added{animation:emRise .4s ease both, wbubFold .6s linear forwards;animation-delay:5s,6.4s}
+  #email.panel.show .em-wfai .wfai-dlog{animation:emReveal .4s ease both, emRecCollapse .4s ease forwards;animation-delay:6.7s,10.15s}
+  #email.panel.show .em-wfai .wfai-dlog .ed1{animation:logIn .35s ease both;animation-delay:6.75s}
+  #email.panel.show .em-wfai .wfai-dlog .ed2{animation:logIn .35s ease both;animation-delay:7.4s}
+  #email.panel.show .em-wfai .wfai-dlog .ed3{animation:logIn .35s ease both;animation-delay:8s}
+  #email.panel.show .em-wfai .wfai-dlog .ed1 .lrun{animation:dotPulse 1s infinite,runOut .3s ease forwards;animation-delay:6.75s,7.4s}
+  #email.panel.show .em-wfai .wfai-dlog .ed1 .lchk{animation:chkIn .3s cubic-bezier(.34,1.6,.5,1) forwards;animation-delay:7.4s}
+  #email.panel.show .em-wfai .wfai-dlog .ed2 .lrun{animation:dotPulse 1s infinite,runOut .3s ease forwards;animation-delay:7.4s,8s}
+  #email.panel.show .em-wfai .wfai-dlog .ed2 .lchk{animation:chkIn .3s cubic-bezier(.34,1.6,.5,1) forwards;animation-delay:8s}
+  #email.panel.show .em-wfai .wfai-dlog .ed3 .lrun{animation:dotPulse 1s infinite;animation-delay:8s}
+  #email.panel.show .em-wfai .wbub-rec-read{animation:emRise .45s cubic-bezier(.34,1.5,.6,1) both, emRecCollapse .4s ease forwards;animation-delay:2.3s,2.95s}
+  #email.panel.show .em-wfai .wbub-rec-read2{animation:emRise .45s cubic-bezier(.34,1.5,.6,1) both, emRecCollapse .4s ease forwards;animation-delay:5.4s,6.65s}
   #email.panel.show .em-wfai .wbub-rec-read2 .rchip:first-child{animation:emChipPress .55s ease both;animation-delay:6.35s}
-  #email.panel.show .em-wfai .wbub-reply2{animation:emReveal .45s ease both;animation-delay:11.31s}
-  #email.panel.show .em-wfai .wbub-rec-reply{animation:emReveal .45s ease both;animation-delay:11.71s}
+  #email.panel.show .em-wfai .wbub-reply2{animation:emReveal .45s ease both;animation-delay:10.96s}
+  #email.panel.show .em-wfai .wbub-rec-reply{animation:emReveal .45s ease both;animation-delay:11.36s}
   /* 답장 클릭 → 메일 detail이 답장 작성 창으로 전환 */
-  #email.panel.show .em-reply{animation:emFadeIn .4s ease both;animation-delay:6.75s}
-  #email.panel.show .em-reply .rep-field{animation:emFadeIn .35s ease both;animation-delay:6.85s}
-  #email.panel.show .em-reply .em-reptools{animation:emFadeIn .35s ease both;animation-delay:6.85s}
-  #email.panel.show .em-reply .em-repfoot{animation:emFadeIn .4s ease both;animation-delay:6.85s}
+  #email.panel.show .em-reply{animation:emFadeIn .4s ease both;animation-delay:6.4s}
+  #email.panel.show .em-reply .rep-field{animation:emFadeIn .35s ease both;animation-delay:6.5s}
+  #email.panel.show .em-reply .em-reptools{animation:emFadeIn .35s ease both;animation-delay:6.5s}
+  #email.panel.show .em-reply .em-repfoot{animation:emFadeIn .4s ease both;animation-delay:6.5s}
   /* 답장: 지식 카드(.kc)를 스캔한 뒤 제목·본문 작성 */
   /* em-repbody 외곽 작업 테두리·틴트 + 우하단 AI 작업 중 (스캔~작성 동안 점등) */
-  #email.panel.show .em-reply .em-repbody::before{animation:emGlowIO 3.0s ease both;animation-delay:8.46s}
-  #email.panel.show .em-reply .em-repbody::after{animation:wfWorkFlow 5s linear infinite, emGlowIO 3.0s ease both;animation-delay:0s,8.46s}
-  #email.panel.show .em-reply .em-repbadge{animation:wfWorkIO 3.0s ease both, wfBdFlow 5s linear infinite;animation-delay:8.46s,0s}
+  #email.panel.show .em-reply .em-repbody::before{animation:emGlowIO 3.0s ease both;animation-delay:8.11s}
+  #email.panel.show .em-reply .em-repbody::after{animation:wfWorkFlow 5s linear infinite, emGlowIO 3.0s ease both;animation-delay:0s,8.11s}
+  #email.panel.show .em-reply .em-repbadge{animation:wfWorkIO 3.0s ease both, wfBdFlow 5s linear infinite;animation-delay:8.11s,0s}
   #email.panel.show .em-reply .em-repbadge .s-big{animation:sBigRise 1.7s ease-in-out infinite}
   #email.panel.show .em-reply .em-repbadge .s-sm{animation:sSmRise 1.7s ease-in-out infinite;animation-delay:0s}
   /* 제목: 파란 박스 생기고 → 글씨 */
-  #email.panel.show .em-reply .rep-subj::before{animation:skBox .7s ease both;animation-delay:8.56s}
-  #email.panel.show .em-reply .rep-subj-tx{animation:typeLine .4s ease both;animation-delay:8.78s}
+  #email.panel.show .em-reply .rep-subj::before{animation:skBox .7s ease both;animation-delay:8.21s}
+  #email.panel.show .em-reply .rep-subj-tx{animation:typeLine .4s ease both;animation-delay:8.43s}
   /* 본문: 한 줄씩 박스 생기고 → 글씨 주루룩 */
-  #email.panel.show .em-reply .rep-editor-in p:nth-child(1)::before{animation:skBox .65s ease both;animation-delay:9.16s}
-  #email.panel.show .em-reply .rep-editor-in p:nth-child(1) .lt{animation:typeLine .32s ease both;animation-delay:9.3s}
-  #email.panel.show .em-reply .rep-editor-in p:nth-child(2)::before{animation:skBox .65s ease both;animation-delay:9.38s}
-  #email.panel.show .em-reply .rep-editor-in p:nth-child(2) .lt{animation:typeLine .32s ease both;animation-delay:9.52s}
-  #email.panel.show .em-reply .rep-editor-in p:nth-child(3)::before{animation:skBox .65s ease both;animation-delay:9.6s}
-  #email.panel.show .em-reply .rep-editor-in p:nth-child(3) .lt{animation:typeLine .35s ease both;animation-delay:9.74s}
-  #email.panel.show .em-reply .rep-editor-in p:nth-child(4)::before{animation:skBox .65s ease both;animation-delay:9.82s}
-  #email.panel.show .em-reply .rep-editor-in p:nth-child(4) .lt{animation:typeLine .35s ease both;animation-delay:9.96s}
-  #email.panel.show .em-reply .rep-editor-in p:nth-child(5)::before{animation:skBox .65s ease both;animation-delay:10.04s}
-  #email.panel.show .em-reply .rep-editor-in p:nth-child(5) .lt{animation:typeLine .35s ease both;animation-delay:10.18s}
-  #email.panel.show .em-reply .rep-editor-in p:nth-child(6)::before{animation:skBox .65s ease both;animation-delay:10.26s}
-  #email.panel.show .em-reply .rep-editor-in p:nth-child(6) .lt{animation:typeLine .35s ease both;animation-delay:10.4s}
-  #email.panel.show .em-reply .rep-caret{animation:caretBlink 1.1s step-end infinite;animation-delay:10.96s}
-  #email.panel.show .em-reply .rep-ainote{animation:emFadeIn .4s ease both;animation-delay:10.76s}
-  #email.panel.show .em-reply .rep-sig{animation:emRise .45s ease both;animation-delay:10.91s}
+  #email.panel.show .em-reply .rep-editor-in p:nth-child(1)::before{animation:skBox .65s ease both;animation-delay:8.81s}
+  #email.panel.show .em-reply .rep-editor-in p:nth-child(1) .lt{animation:typeLine .32s ease both;animation-delay:8.95s}
+  #email.panel.show .em-reply .rep-editor-in p:nth-child(2)::before{animation:skBox .65s ease both;animation-delay:9.03s}
+  #email.panel.show .em-reply .rep-editor-in p:nth-child(2) .lt{animation:typeLine .32s ease both;animation-delay:9.17s}
+  #email.panel.show .em-reply .rep-editor-in p:nth-child(3)::before{animation:skBox .65s ease both;animation-delay:9.25s}
+  #email.panel.show .em-reply .rep-editor-in p:nth-child(3) .lt{animation:typeLine .35s ease both;animation-delay:9.39s}
+  #email.panel.show .em-reply .rep-editor-in p:nth-child(4)::before{animation:skBox .65s ease both;animation-delay:9.47s}
+  #email.panel.show .em-reply .rep-editor-in p:nth-child(4) .lt{animation:typeLine .35s ease both;animation-delay:9.61s}
+  #email.panel.show .em-reply .rep-editor-in p:nth-child(5)::before{animation:skBox .65s ease both;animation-delay:9.69s}
+  #email.panel.show .em-reply .rep-editor-in p:nth-child(5) .lt{animation:typeLine .35s ease both;animation-delay:9.83s}
+  #email.panel.show .em-reply .rep-editor-in p:nth-child(6)::before{animation:skBox .65s ease both;animation-delay:9.91s}
+  #email.panel.show .em-reply .rep-editor-in p:nth-child(6) .lt{animation:typeLine .35s ease both;animation-delay:10.05s}
+  #email.panel.show .em-reply .rep-caret{animation:caretBlink 1.1s step-end infinite;animation-delay:10.61s}
+  #email.panel.show .em-reply .rep-ainote{animation:emFadeIn .4s ease both;animation-delay:10.41s}
+  #email.panel.show .em-reply .rep-sig{animation:emRise .45s ease both;animation-delay:10.56s}
   /* 마무리(초기화) 애니: 진입 애니에 합성돼 타임라인(GSAP 시계)으로 구동 → 재생바 스크럽 가능.
-     ~13.2s부터 reset 키프레임(forwards)이 활성화돼 "처음 화면(메일리스트+우측 빈 화면)"으로 복귀 */
+     ~12.2s부터 reset 키프레임(forwards)이 활성화돼 "처음 화면(메일리스트+우측 빈 화면)"으로 복귀 */
   @keyframes emWfaiClose{from{flex-basis:326px;opacity:1}to{flex-basis:0;opacity:0}}
   @keyframes emSideBack{from{flex-basis:64px}to{flex-basis:200px}}
   @keyframes emListBack{from{flex-basis:208px}to{flex-basis:392px}}
@@ -2500,7 +2505,7 @@
             <div class="wfai-rb">
               <div class="wfai-nm">윤소율<b class="ai-tag"><svg class="ai-svg" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.6553 17.784V0H21.2073V17.784H17.6553Z" fill="currentColor"/><path d="M0 17.784L5.688 0H9.888L15.576 17.784H11.832L9.312 8.52C9.04 7.592 8.776 6.632 8.52 5.64C8.28 4.632 8.024 3.656 7.752 2.712H7.656C7.432 3.672 7.184 4.648 6.912 5.64C6.656 6.632 6.4 7.592 6.144 8.52L3.6 17.784H0ZM3.528 13.224V10.464H11.976V13.224H3.528Z" fill="currentColor"/></svg></b> <span>이메일 관리</span></div>
               <div class="wfai-typing"><span class="tdots"><i></i><i></i><i></i></span></div>
-              <div class="wbub wbub-cat">이 메일은 <b class="cat cat-work">업무</b> 메일이네요. 핵심만 짚어드릴게요.</div>
+              <div class="wbub wbub-cat">스마트물류 플랫폼 구축 <b class="cat cat-work">업무</b> 메일이네요. 핵심 요약하고 지식화할게요.</div>
               <div class="wbub wbub-kq">받은 메일 내용과 핵심 요약을 <b>스마트물류 플랫폼 구축</b> 지식에 반영할까요?</div>
               <button class="kbtn">반영하기</button>
               <div class="wbub-rec wbub-rec-read">
@@ -4676,7 +4681,7 @@
     var c=document.getElementById('email'); if(!c)return;
     var fly=c.querySelector('.em-flyfile.fly-kc'), shell=c.querySelector('.appshell');
     if(!fly||!shell||!fly.animate){ if(fly)fly.style.display='none'; return; }
-    var anim=null, D=350, LAND=.85, FLYAT=4450;
+    var anim=null, D=350, LAND=.85, FLYAT=4100;
     function play(){
       var src=c.querySelector('.em-detail'), dst=c.querySelector('.em-wfai .kc .kl.new')||c.querySelector('.em-wfai .kc');
       if(!src||!dst)return;
