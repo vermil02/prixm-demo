@@ -2201,9 +2201,9 @@
   #email.panel.show .em-acct .at{animation:emTextOut .35s ease 0.5s both, emTextBack .4s ease 12.8s forwards}
   #email.panel.show .em-sync{animation:emFadeOut .35s ease 0.5s both, emFadeIn .4s ease 12.8s forwards}
   #email.panel.show .em-fold .fl{animation:emTextOut .35s ease 0.5s both, emTextBack .4s ease 12.8s forwards}
-  #email.panel.show .em-fold.on .ct{animation:emHide .3s ease both;animation-delay:0.5s}
+  #email.panel.show .em-fold.on .ct{animation:emHide .3s ease 0.5s both, emShow .4s ease 12.75s forwards}
   #email.panel.show .em-fold{animation:emFoldPad .5s cubic-bezier(.4,0,.2,1) both;animation-delay:0.5s}
-  #email.panel.show .em-new .nt{animation:emNtOut .5s cubic-bezier(.4,0,.2,1) both;animation-delay:0.5s}
+  #email.panel.show .em-new .nt{animation:emNtOut .5s cubic-bezier(.4,0,.2,1) 0.5s both, emNtBack .45s cubic-bezier(.4,0,.2,1) 12.8s forwards}
   /* AI 워크스페이스 등장 → 윤소율 타이핑 → 메일 분류·요약·추천·답장 제안 */
   #email.panel.show .em-wfai{animation:emWfaiOpen .5s cubic-bezier(.4,0,.2,1) 0.95s both, emWfaiClose .45s cubic-bezier(.4,0,.2,1) 12.7s forwards}
   #email.panel.show .em-wfai .wfai-r{animation:emRise .45s ease both;animation-delay:1.15s}
@@ -2331,6 +2331,7 @@
   @keyframes emListShrink{from{flex-basis:392px}to{flex-basis:208px}}
   @keyframes emTextOut{0%{opacity:1;max-width:200px}99%{opacity:0;max-width:0;margin:0}100%{opacity:0;max-width:0;margin:0}}
   @keyframes emHide{0%{opacity:1}99%{opacity:0}100%{opacity:0;display:none}}
+  @keyframes emShow{0%{opacity:0;display:none}1%{opacity:0;display:inline-flex}100%{opacity:1;display:inline-flex}}
   @keyframes emFoldPad{to{padding-left:11.5px}}
   @keyframes emTypeOut{to{opacity:0;height:0;padding-top:0;padding-bottom:0;margin-top:-10px;margin-bottom:0}}
   @keyframes emChipPress{0%{transform:scale(1)}28%{transform:scale(1.14);background:var(--accent-soft);border-color:var(--accent-bd);color:var(--accent)}52%{transform:scale(.9)}74%{transform:scale(1.05)}100%{transform:scale(1);background:var(--accent-soft);border-color:var(--accent-bd);color:var(--accent)}}
@@ -2341,6 +2342,7 @@
   @keyframes skBox{0%{opacity:0}28%{opacity:1}62%{opacity:1}100%{opacity:0}}
   @keyframes emGlowIO{0%{opacity:0}12%{opacity:1}85%{opacity:1}100%{opacity:0}}
   @keyframes emNtOut{0%{max-width:48px;margin-left:7px;opacity:1}100%{max-width:0;margin-left:0;opacity:0}}
+  @keyframes emNtBack{from{max-width:0;margin-left:0;opacity:0}to{max-width:48px;margin-left:7px;opacity:1}}
   @keyframes emWfaiOpen{from{flex-basis:0;opacity:0}to{flex-basis:326px;opacity:1}}
 </style>
   <div class="panel" id="email">
